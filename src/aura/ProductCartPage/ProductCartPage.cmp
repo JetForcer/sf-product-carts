@@ -1,0 +1,58 @@
+<aura:component controller="ProductController" implements="flexipage:availableForAllPageTypes">
+
+    <!-- Layouts: https://developer.salesforce.com/docs/component-library/bundle/lightning:layout/example#lightningcomponentdemo:exampleLayoutPage -->
+
+    <aura:attribute name="filters" type="ProductFilterInfo[]"/>
+    <aura:attribute name="selectedFilters" type="List" default=""/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <lightning:layout multipleRows="true">
+
+        <lightning:layoutItem padding="around-small" size="2">
+
+            <lightning:card title="Filters">
+
+                <aura:iteration items="{!v.filters}" var="filterInfo">
+
+                    <lightning:checkboxGroup name="{!filterInfo.filterGroupName}"
+                                             label="{!filterInfo.filterGroupName}"
+                                             options="{!filterInfo.options}"
+                                             value="{!v.selectedFilters}"
+                                             onchange="{!c.handleFiltersChange}"
+                                             class="slds-p-horizontal--large slds-p-bottom--large"
+                    />
+
+                </aura:iteration>
+            </lightning:card>
+
+        </lightning:layoutItem>
+
+        <lightning:layoutItem padding="around-small" size="10">
+
+            <!-- Tiles: https://developer.salesforce.com/docs/component-library/bundle/lightning:tile/example#lightningcomponentdemo:exampleTileWithIcon -->
+
+            <lightning:layout multipleRows="true">
+
+                <lightning:layoutItem size="12">
+                    <!-- TODO : isLoading attribute should be enabled/disabled programmatically -->
+                    <div onkeyup="{! c.handleOnKeyup }">
+
+                        <!-- Input Search : https://developer.salesforce.com/docs/component-library/bundle/lightning:input/example#lightningcomponentdemo:exampleInputSearch -->
+
+                        <!-- TODO : Add Recent Items and smart suggestions in code completion popups during editing -->
+                        <lightning:input
+                                aura:id="product-inline-search-input"
+                                name="product-inline-search-input"
+                                label="Product Search"
+                                type="search"
+                                variant="label-hidden"
+                                isLoading="false"
+                        />
+                    </div>
+                </lightning:layoutItem>
+
+            </lightning:layout>
+        </lightning:layoutItem>
+    </lightning:layout>
+</aura:component>
