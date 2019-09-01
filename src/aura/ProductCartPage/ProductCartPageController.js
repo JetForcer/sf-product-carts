@@ -38,6 +38,5 @@
     },
 
     handleCheckboxFiltersChange: function (cmp, evt) {
-        alert(evt.getParam('value'));
     }
 });

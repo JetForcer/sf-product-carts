@@ -1,5 +1,8 @@
 public class ProductFilterService {
 
+	public static final String FAMILY_GROUP = 'Family';
+	public static final String PRODUCT_TYPE_GROUP = 'Product Type';
+
 	private final ProductFamilyRepository productFamilyRepository;
 	private final ProductTypeRepository productTypeRepository;
 	private final CheckboxOptionConverter converter;
@@ -28,8 +31,8 @@ public class ProductFilterService {
 		List<String> typesNames = productTypeRepository.getTypesNames();
 
 		return new ProductFilterInfo[] {
-				new ProductFilterInfo('Family', converter.toCheckboxOptions(familiesNames)),
-				new ProductFilterInfo('Product Type', converter.toCheckboxOptions(typesNames))
+				new ProductFilterInfo(FAMILY_GROUP, converter.toCheckboxOptions(FAMILY_GROUP, familiesNames)),
+				new ProductFilterInfo(PRODUCT_TYPE_GROUP, converter.toCheckboxOptions(PRODUCT_TYPE_GROUP, typesNames))
 				};
 	}
 }
