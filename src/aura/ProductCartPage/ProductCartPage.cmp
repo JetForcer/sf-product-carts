@@ -3,9 +3,11 @@
     <!-- Layouts: https://developer.salesforce.com/docs/component-library/bundle/lightning:layout/example#lightningcomponentdemo:exampleLayoutPage -->
 
     <aura:attribute name="filters" type="ProductFilterInfo[]"/>
-    <aura:attribute name="selectedFilters" type="List" default=""/>
+    <aura:attribute name="selectedFilters" type="List"/>
+    <aura:attribute name="filteredProducts" type="ProductCartInfo[]"/>
 
-    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler name="init" value="{!this}" action="{!c.initCheckboxFilters}"/>
+    <aura:handler name="init" value="{!this}" action="{!c.reloadFilteredProducts}"/>
 
     <lightning:layout multipleRows="true">
 
@@ -19,7 +21,7 @@
                                              label="{!filterInfo.filterGroupName}"
                                              options="{!filterInfo.options}"
                                              value="{!v.selectedFilters}"
-                                             onchange="{!c.handleFiltersChange}"
+                                             onchange="{!c.handleCheckboxFiltersChange}"
                                              class="slds-p-horizontal--large slds-p-bottom--large"
                     />
 
@@ -36,20 +38,68 @@
 
                 <lightning:layoutItem size="12">
                     <!-- TODO : isLoading attribute should be enabled/disabled programmatically -->
-                    <div onkeyup="{! c.handleOnKeyup }">
+                    <div onkeyup="{!c.handleSearchTextChange}" class="slds-p-bottom--large slds-p-left--large">
 
                         <!-- Input Search : https://developer.salesforce.com/docs/component-library/bundle/lightning:input/example#lightningcomponentdemo:exampleInputSearch -->
 
                         <!-- TODO : Add Recent Items and smart suggestions in code completion popups during editing -->
                         <lightning:input
-                                aura:id="product-inline-search-input"
-                                name="product-inline-search-input"
+                                aura:id="product-search-text-input"
+                                name="product-search-text-input"
                                 label="Product Search"
                                 type="search"
                                 variant="label-hidden"
                                 isLoading="false"
                         />
                     </div>
+                </lightning:layoutItem>
+
+                <lightning:layoutItem size="12">
+
+                    <lightning:layout multipleRows="true">
+
+                        <aura:iteration items="{!v.filteredProducts}" var="product">
+
+                            <lightning:layoutItem
+                                    size="3"
+                                    class="slds-p-bottom--large slds-p-left--large"
+                            >
+
+                                <lightning:card title="" class="slds-p-around--small">
+
+                                    <lightning:tile label="{!product.name}" class="slds-text-heading_medium" href="/">
+
+                                        <div class="slds-p-top--medium">
+
+                                            <aura:if isTrue="{!product.iconLink != null}">
+
+                                                <span class="slds-float_left slds-p-right--small">
+                                                    <lightning:icon
+                                                            iconName="{!product.iconLink}"
+                                                            size="large"
+                                                            alternativeText="Product Icon"
+                                                    />
+                                                </span>
+                                            </aura:if>
+
+                                            <lightning:formattedText
+                                                    value="{!product.description == null ? 'No description provided': product.description}"
+                                                    class="slds-text-heading_small"
+                                            />
+
+                                            <hr class=""/>
+
+                                            <lightning:buttonGroup
+                                                    class="slds-text-heading_small slds-align_absolute-center">
+                                                <lightning:button label="Details"/>
+                                                <lightning:button label="Add" class="slds-button--brand"/>
+                                            </lightning:buttonGroup>
+                                        </div>
+                                    </lightning:tile>
+                                </lightning:card>
+                            </lightning:layoutItem>
+                        </aura:iteration>
+                    </lightning:layout>
                 </lightning:layoutItem>
 
             </lightning:layout>

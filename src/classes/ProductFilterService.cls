@@ -4,9 +4,20 @@ public class ProductFilterService {
 	private final ProductTypeRepository productTypeRepository;
 	private final CheckboxOptionConverter converter;
 
-	public ProductFilterService(ProductFamilyRepository familyRepository,
-								ProductTypeRepository typeRepository,
-								CheckboxOptionConverter converter) {
+	public static ProductFilterService instance {
+		get {
+			return new ProductFilterService(
+					new ProductFamilyRepository(),
+					new ProductTypeRepository(),
+					new CheckboxOptionConverter()
+			);
+		}
+		private set;
+	}
+
+	private ProductFilterService(ProductFamilyRepository familyRepository,
+								 ProductTypeRepository typeRepository,
+								 CheckboxOptionConverter converter) {
 		this.converter = converter;
 		this.productFamilyRepository = familyRepository;
 		this.productTypeRepository = typeRepository;

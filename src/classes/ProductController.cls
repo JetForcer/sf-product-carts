@@ -1,15 +1,20 @@
 public class ProductController {
 
-	public static ProductFilterService productFilterService = new ProductFilterService(
-			new ProductFamilyRepository(),
-			new ProductTypeRepository(),
-			new CheckboxOptionConverter()
-	);
+	public static ProductFilterService filterService;
+	public static ProductService productsService;
+
+	static {
+		filterService = ProductFilterService.instance;
+		productsService = ProductService.instance;
+	}
 
 	@AuraEnabled
 	public static ProductFilterInfo[] getProductFilters() {
-		System.debug('[productFilterService.getFilters()::ProductFilterInfo[]]:watches' +
-				JSON.serialize(productFilterService.getFilters()));
-		return productFilterService.getFilters();
+		return filterService.getFilters();
+	}
+
+	@AuraEnabled
+	public static ProductCartInfo[] getFilteredProducts() {
+		return productsService.getFilteredProducts();
 	}
 }
