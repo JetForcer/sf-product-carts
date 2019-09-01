@@ -37,7 +37,7 @@
         }
     },
 
-    handleCheckboxFiltersChange: function (component, event) {
-        alert(event.getParam('value'));
+    handleCheckboxFiltersChange: function (cmp, evt) {
+        alert(evt.getParam('value'));
     }
 });
