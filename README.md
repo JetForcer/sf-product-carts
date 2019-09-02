@@ -1,6 +1,6 @@
 # sf-product-carts
 
-Original Task: Google Doc
+Original Task: <a href="https://docs.google.com/document/d/1yfljUxJ34bHewBJFtfxHqUenKY-1VrHhNxn3av7f3DM/edit#">Google Doc</a>
 
 The main goal is the Product Cart page implementation.
 
