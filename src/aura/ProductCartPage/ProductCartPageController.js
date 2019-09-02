@@ -1,11 +1,11 @@
 ({
-    initCheckboxFilters: function (cmp, evt) {
+    initCheckboxFilters: function (cmp) {
         var getProductFilters = cmp.get("c.getProductFilters");
 
-        getProductFilters.setCallback(this, function(response){
+        getProductFilters.setCallback(this, function (response) {
             var state = response.getState();
             if (state === "SUCCESS") {
-                cmp.set("v.filters", response.getReturnValue());
+                cmp.set("v.filtersInfos", response.getReturnValue());
             } else if (state === "ERROR") {
                 alert('Error : ' + JSON.stringify(response.getError()));
             }
@@ -14,29 +14,18 @@
         $A.enqueueAction(getProductFilters);
     },
 
-    reloadFilteredProducts: function (cmp, evt) {
-        var filteredProducts = cmp.get("c.getFilteredProducts");
-
-        filteredProducts.setCallback(this, function(response){
-            var state = response.getState();
-            if (state === "SUCCESS") {
-                cmp.set("v.filteredProducts", response.getReturnValue());
-            } else if (state === "ERROR") {
-                alert('Error : ' + JSON.stringify(response.getError()));
-            }
-        });
-
-        $A.enqueueAction(filteredProducts);
-    },
-
-    handleSearchTextChange: function (cmp, evt) {
+    handleSearchTextChange: function (cmp, evt, helper) {
         var enterKey = evt.code === "Enter";
         if (enterKey) {
-            var queryTerm = cmp.find('product-search-text-input').get('v.value');
-            alert('Searched for "' + queryTerm + '"!');
+            helper.doReloadFilteredProducts(cmp, evt)
         }
     },
 
-    handleCheckboxFiltersChange: function (cmp, evt) {
+    handleCheckboxFiltersChange: function (cmp, evt, helper) {
+        helper.doReloadFilteredProducts(cmp, evt)
+    },
+
+    reloadFilteredProducts: function (cmp, evt, helper) {
+        helper.doReloadFilteredProducts(cmp, evt)
     }
 });

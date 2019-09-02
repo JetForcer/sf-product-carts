@@ -2,12 +2,13 @@
 
     <!-- Layouts: https://developer.salesforce.com/docs/component-library/bundle/lightning:layout/example#lightningcomponentdemo:exampleLayoutPage -->
 
-    <aura:attribute name="filters" type="ProductFilterInfo[]"/>
-    <aura:attribute name="selectedFilters" type="List"/>
+    <aura:attribute name="filtersInfos" type="ProductFilterInfo[]"/>
+    <aura:attribute name="selectedFilters" type="String[]"/>
     <aura:attribute name="filteredProducts" type="ProductCartInfo[]"/>
 
     <aura:handler name="init" value="{!this}" action="{!c.initCheckboxFilters}"/>
     <aura:handler name="init" value="{!this}" action="{!c.reloadFilteredProducts}"/>
+
 
     <lightning:layout multipleRows="true">
 
@@ -15,7 +16,7 @@
 
             <lightning:card title="Filters">
 
-                <aura:iteration items="{!v.filters}" var="filterInfo">
+                <aura:iteration items="{!v.filtersInfos}" var="filterInfo">
 
                     <lightning:checkboxGroup name="{!filterInfo.filterGroupName}"
                                              label="{!filterInfo.filterGroupName}"
@@ -26,6 +27,7 @@
                     />
 
                 </aura:iteration>
+
             </lightning:card>
 
         </lightning:layoutItem>

@@ -1,6 +1,6 @@
 public class CheckboxOption {
 
-	public static final String FAMILY_VALUE_SEPARATOR = ':';
+	public static final String FILTER_SEPARATOR = ':';
 
 	@AuraEnabled
 	public String label {
@@ -12,8 +12,19 @@ public class CheckboxOption {
 		get; set;
 	}
 
-	public CheckboxOption(String family, String value) {
+	public ProductFilter filter {
+		get; private set;
+	}
+
+	public CheckboxOption(ProductFilter filterType, String value) {
 		this.label = value;
-		this.value = family + FAMILY_VALUE_SEPARATOR + value;
+		this.value = filterType.name + FILTER_SEPARATOR + value;
+		this.filter = filterType;
+	}
+
+	public static CheckboxOption fromValue(String value) {
+		String val = value.substringAfter(FILTER_SEPARATOR);
+		ProductFilter filter = ProductFilter.fromName(value.substringBefore(FILTER_SEPARATOR));
+		return new CheckboxOption(filter, val);
 	}
 }

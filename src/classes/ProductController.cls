@@ -14,7 +14,9 @@ public class ProductController {
 	}
 
 	@AuraEnabled
-	public static ProductCartInfo[] getFilteredProducts() {
-		return productsService.getFilteredProducts();
+	public static ProductCartInfo[] getFilteredProducts(String textToSearch, String[] selectedFilters) {
+		System.debug('[textToSearch::String]:watches' + JSON.serialize(textToSearch));
+		System.debug('[selectedFilters::List<String>]:watches' + JSON.serialize(selectedFilters));
+		return productsService.getFilteredProducts(textToSearch, selectedFilters);
 	}
 }
