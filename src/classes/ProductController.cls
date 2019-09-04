@@ -1,22 +1,27 @@
 public class ProductController {
 
-	public static ProductFilterService filterService;
 	public static ProductService productsService;
+	public static ProductCheckboxOptionService checkboxOptionService;
 
 	static {
-		filterService = ProductFilterService.instance;
 		productsService = ProductService.instance;
+		checkboxOptionService = ProductCheckboxOptionService.instance;
 	}
 
 	@AuraEnabled
-	public static ProductFilterInfo[] getProductFilters() {
-		return filterService.getFilters();
-	}
+	public static ProductDto[] getFilteredProducts(Id opportunityId,
+												   String textToSearch,
+												   String[] familiesOptions) {
 
-	@AuraEnabled
-	public static ProductCartInfo[] getFilteredProducts(String textToSearch, String[] selectedFilters) {
+		System.debug('[opportunityId::Id]:watches' + JSON.serialize(opportunityId));
 		System.debug('[textToSearch::String]:watches' + JSON.serialize(textToSearch));
-		System.debug('[selectedFilters::List<String>]:watches' + JSON.serialize(selectedFilters));
-		return productsService.getFilteredProducts(textToSearch, selectedFilters);
+		System.debug('[familiesFilters::List<String>]:watches' + JSON.serialize(familiesOptions));
+
+		return productsService.getFilteredProducts(opportunityId, textToSearch, familiesOptions);
+	}
+
+	@AuraEnabled
+	public static CheckboxOption[] getFamiliesOptions(Id opportunityId) {
+		return checkboxOptionService.getFamiliesOptions(opportunityId);
 	}
 }

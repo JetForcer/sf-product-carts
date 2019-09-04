@@ -1,17 +1,16 @@
 ({
     initCheckboxFilters: function (cmp) {
-        var getProductFilters = cmp.get("c.getProductFilters");
-
-        getProductFilters.setCallback(this, function (response) {
+        var familiesAction = cmp.get("c.getFamiliesOptions");
+        familiesAction.setCallback(this, function (response) {
             var state = response.getState();
             if (state === "SUCCESS") {
-                cmp.set("v.filtersInfos", response.getReturnValue());
+                cmp.set("v.familiesOptions", response.getReturnValue());
             } else if (state === "ERROR") {
                 alert('Error : ' + JSON.stringify(response.getError()));
             }
         });
 
-        $A.enqueueAction(getProductFilters);
+        $A.enqueueAction(familiesAction);
     },
 
     handleSearchTextChange: function (cmp, evt, helper) {

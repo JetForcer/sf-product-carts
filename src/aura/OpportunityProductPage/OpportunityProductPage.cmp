@@ -3,9 +3,10 @@
     <!-- Layouts: https://developer.salesforce.com/docs/component-library/bundle/lightning:layout/example#lightningcomponentdemo:exampleLayoutPage -->
     <!-- Displayed RecordID: https://developer.salesforce.com/forums/?id=906F0000000BX1nIAG -->
 
-    <aura:attribute name="filtersInfos" type="ProductFilterInfo[]"/>
-    <aura:attribute name="selectedFilters" type="String[]"/>
-    <aura:attribute name="filteredProducts" type="ProductCartInfo[]"/>
+    <aura:attribute name="familiesOptions" type="CheckboxOption[]"/>
+    <aura:attribute name="selectedFamilies" type="String[]"/>
+
+    <aura:attribute name="filteredProducts" type="ProductDto[]"/>
 
     <aura:handler name="init" value="{!this}" action="{!c.initCheckboxFilters}"/>
     <aura:handler name="init" value="{!this}" action="{!c.reloadFilteredProducts}"/>
@@ -17,17 +18,13 @@
 
             <lightning:card title="Filters">
 
-                <aura:iteration items="{!v.filtersInfos}" var="filterInfo">
-
-                    <lightning:checkboxGroup name="{!filterInfo.filterGroupName}"
-                                             label="{!filterInfo.filterGroupName}"
-                                             options="{!filterInfo.options}"
-                                             value="{!v.selectedFilters}"
-                                             onchange="{!c.handleCheckboxFiltersChange}"
-                                             class="slds-p-horizontal--large slds-p-bottom--large"
-                    />
-
-                </aura:iteration>
+                <lightning:checkboxGroup name="Family"
+                                         label="Family"
+                                         options="{!v.familiesOptions}"
+                                         value="{!v.selectedFamilies}"
+                                         onchange="{!c.handleCheckboxFiltersChange}"
+                                         class="slds-p-horizontal--large slds-p-bottom--large"
+                />
 
             </lightning:card>
 

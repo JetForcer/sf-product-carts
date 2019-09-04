@@ -1,12 +1,12 @@
-public class ProductCartInfo {
-
-	@AuraEnabled
-	public String productLink {
-		get; set;
-	}
+public class ProductDto {
 
 	@AuraEnabled
 	public String name {
+		get; private set;
+	}
+
+	@AuraEnabled
+	public String productLink {
 		get; set;
 	}
 
@@ -20,7 +20,7 @@ public class ProductCartInfo {
 		get; set;
 	}
 
-	public ProductCartInfo(String name) {
+	public ProductDto(String name) {
 		this.name = name;
 	}
 }

@@ -7,46 +7,29 @@ public class ProductService {
 		private set;
 	}
 
-	private final ProductRepository productRepository;
-	private final ProductCartConverter converter;
+	public ProductDto[] getFilteredProducts(Id opportunityId,
+											String textToSearch,
+											List<String> familiesOptions) {
 
-	private ProductService() {
-		this.productRepository = new ProductRepository();
-		this.converter = new ProductCartConverter();
-	}
+		Opportunity found = [
+				select Id,
+						Name,
+						(select PricebookEntry.Name,
+								 PricebookEntry.Product2.Family
+						from OpportunityLineItems)
+				from Opportunity
+				where Id = :opportunityId
+		];
 
-	public ProductCartInfo[] getFilteredProducts(String textToSearch, List<String> selectedFilters) {
-		Map<String, List<String>> valuesByFilter = buildValuesByFilter(selectedFilters);
+		System.debug('[opportunities::Opportunity]:watches' + JSON.serialize(found));
 
-		List<String> familiesNames = valuesByFilter.get(ProductFilter.FAMILY.name);
-		List<String> typesNames = valuesByFilter.get(ProductFilter.PRODUCT_TYPE.name);
-
-		List<Product__c> products = productRepository.getProductsWhere(
-				textToSearch, familiesNames, typesNames
-		);
-
-		return converter.fromProductEntities(products);
-	}
-
-	private Map<String, List<String>> buildValuesByFilter(List<String> selected) {
-		Map<String, List<String>> result = new Map<String, List<String>>();
-
-		System.debug('[selected::List<String>]:watches' + JSON.serialize(selected));
-		for (String next : selected) {
-			CheckboxOption option = CheckboxOption.fromValue(next);
-			getOrDefault(result, option.filter.name, new List<String>())
-					.add(option.label);
+		List<ProductDto> result = new List<ProductDto>();
+		for (OpportunityLineItem next : found.OpportunityLineItems) {
+			result.add(new ProductDto(
+					next.PricebookEntry.Name
+			));
 		}
 
 		return result;
-	}
-
-	private List<String> getOrDefault(Map<String, List<String>> m, String key, List<String> def) {
-		List<String> value = m.get(key);
-		if (value == null) {
-			m.put(key, def);
-			value = def;
-		}
-		return value;
 	}
 }
