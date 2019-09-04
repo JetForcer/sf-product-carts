@@ -15,7 +15,8 @@ public class ProductService {
 				select Id,
 						Name,
 						(select PricebookEntry.Name,
-								 PricebookEntry.Product2.Family
+								 PricebookEntry.Product2.Family,
+								 PricebookEntry.Product2.Description
 						from OpportunityLineItems)
 				from Opportunity
 				where Id = :opportunityId
@@ -25,9 +26,9 @@ public class ProductService {
 
 		List<ProductDto> result = new List<ProductDto>();
 		for (OpportunityLineItem next : found.OpportunityLineItems) {
-			result.add(new ProductDto(
-					next.PricebookEntry.Name
-			));
+			ProductDto dto = new ProductDto(next.PricebookEntry.Name);
+			dto.description = next.PricebookEntry.Product2.Description;
+			result.add(dto);
 		}
 
 		return result;
