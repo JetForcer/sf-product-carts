@@ -2,30 +2,28 @@ public class ProductService {
 
 	public static ProductService instance {
 		get {
-			return new ProductService();
+			return new ProductService(
+					new OpportunityLineItemRepository()
+			);
 		}
 		private set;
+	}
+
+	private final OpportunityLineItemRepository opportunityLineItemRepository;
+
+	public ProductService(OpportunityLineItemRepository opportunityLineItemRepository) {
+		this.opportunityLineItemRepository = opportunityLineItemRepository;
 	}
 
 	public ProductDto[] getFilteredProducts(Id opportunityId,
 											String textToSearch,
 											List<String> familiesOptions) {
 
-		Opportunity found = [
-				select Id,
-						Name,
-						(select PricebookEntry.Name,
-								 PricebookEntry.Product2.Family,
-								 PricebookEntry.Product2.Description
-						from OpportunityLineItems)
-				from Opportunity
-				where Id = :opportunityId
-		];
-
-		System.debug('[opportunities::Opportunity]:watches' + JSON.serialize(found));
+		OpportunityLineItem[] found =
+				opportunityLineItemRepository.findAllBy(opportunityId, textToSearch, familiesOptions);
 
 		List<ProductDto> result = new List<ProductDto>();
-		for (OpportunityLineItem next : found.OpportunityLineItems) {
+		for (OpportunityLineItem next : found) {
 			ProductDto dto = new ProductDto(next.PricebookEntry.Name);
 			dto.description = next.PricebookEntry.Product2.Description;
 			result.add(dto);

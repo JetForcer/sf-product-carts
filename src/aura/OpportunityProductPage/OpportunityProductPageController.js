@@ -1,7 +1,13 @@
 ({
     initCheckboxFilters: function (cmp) {
-        var familiesAction = cmp.get("c.getFamiliesOptions");
-        familiesAction.setCallback(this, function (response) {
+        var opportunityId = cmp.get('v.recordId');
+
+        var familiesOptionsAction = cmp.get("c.getFamiliesOptions");
+        familiesOptionsAction.setParams({
+            "opportunityId": opportunityId
+        });
+
+        familiesOptionsAction.setCallback(this, function (response) {
             var state = response.getState();
             if (state === "SUCCESS") {
                 cmp.set("v.familiesOptions", response.getReturnValue());
@@ -10,7 +16,7 @@
             }
         });
 
-        $A.enqueueAction(familiesAction);
+        $A.enqueueAction(familiesOptionsAction);
     },
 
     handleSearchTextChange: function (cmp, evt, helper) {

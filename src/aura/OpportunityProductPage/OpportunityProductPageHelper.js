@@ -8,7 +8,7 @@
         filteredProductsAction.setParams({
             "opportunityId": opportunityId,
             "textToSearch": textToSearch,
-            "selectedFilters": selectedFamilies
+            "selectedFamilies": selectedFamilies
         });
 
         filteredProductsAction.setCallback(this, function (response) {

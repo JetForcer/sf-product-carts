@@ -11,13 +11,13 @@ public class ProductController {
 	@AuraEnabled
 	public static ProductDto[] getFilteredProducts(Id opportunityId,
 												   String textToSearch,
-												   String[] familiesOptions) {
+												   String[] selectedFamilies) {
 
 		System.debug('[opportunityId::Id]:watches' + JSON.serialize(opportunityId));
 		System.debug('[textToSearch::String]:watches' + JSON.serialize(textToSearch));
-		System.debug('[familiesFilters::List<String>]:watches' + JSON.serialize(familiesOptions));
+		System.debug('[familiesFilters::List<String>]:watches' + JSON.serialize(selectedFamilies));
 
-		return productsService.getFilteredProducts(opportunityId, textToSearch, familiesOptions);
+		return productsService.getFilteredProducts(opportunityId, textToSearch, selectedFamilies);
 	}
 
 	@AuraEnabled
