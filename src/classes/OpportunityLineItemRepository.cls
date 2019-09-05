@@ -32,6 +32,12 @@ public class OpportunityLineItemRepository {
 				'from OpportunityLineItems';
 
 		List<String> whereClauses = new List<String>();
+		if (Util.notEmpty(description)) {
+			// prevent SOQL injections
+			String normalized = String.escapeSingleQuotes(description);
+			whereClauses.add('PricebookEntry.Product2.Description like \'%' + normalized + '%\'');
+		}
+
 		if (Util.notEmpty(familiesNames)) {
 			whereClauses.add('PricebookEntry.Product2.Family in :familiesNames');
 		}
