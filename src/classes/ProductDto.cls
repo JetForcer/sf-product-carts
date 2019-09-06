@@ -28,6 +28,6 @@ public virtual class ProductDto {
 	public ProductDto(String name, String id) {
 		this.id = id;
 		this.name = name;
-		this.productLink = '/lightning/r/' + id + '/view';
+		this.productLink = LinkBuilder.create(id);
 	}
 }

@@ -5,9 +5,25 @@ public class Product2Repository {
 				select Id,
 						Name,
 						Description,
-						Family
+						Family,
+						IconLink__c,
+						CurrencyIsoCode
 				from Product2
 				where Id in :ids
+		];
+	}
+
+	public Product2 findById(Id id) {
+		return [
+				select Id,
+						Name,
+						Description,
+						Family,
+						CurrencyIsoCode,
+						IsActive,
+						ProductCode
+				from Product2
+				where Id = :id
 		];
 	}
 }

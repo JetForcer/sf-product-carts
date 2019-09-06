@@ -3,9 +3,12 @@
     <aura:attribute name="product2Id" type="Id" required="true"/>
     <aura:attribute name="opportunityId" type="Id" required="true"/>
 
+    <aura:attribute name="details" type="ProductDetailsDto"/>
+
     <aura:attribute name="isModalOpen" type="Boolean" default="false"/>
 
     <aura:handler event="c:OpenCartDetails" action="{!c.openModel}"/>
+    <aura:handler name="init" value="{!this}" action="{!c.initDetails}"/>
 
     <!--Use aura:if tag to display/hide popup based on isModalOpen value-->
     <aura:if isTrue="{!v.isModalOpen}">
@@ -31,8 +34,56 @@
                 </header>
 
                 <!-- Body -->
-                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                <div class="slds-modal__content slds-p-around_medium slds-text-heading_label-normal" id="modal-content-id-1">
+                    <lightning:tile label="{!v.details.name}" href="{!v.details.productLink}">
+                        <dl class="slds-dl_horizontal slds-p-around--medium">
+                             <aura:if isTrue="{!v.details.family != null}">
+                                 <dt class="slds-dl_horizontal__label">
+                                     <p class="slds-truncate" title="Family">Family:</p>
+                                 </dt>
+                                 <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                                     <p class="slds-truncate" title="{!v.details.family}">{!v.details.family}</p>
+                                 </dd>
+                             </aura:if>
 
+                            <aura:if isTrue="{!v.details.code != null}">
+                                <dt class="slds-dl_horizontal__label">
+                                    <p class="slds-truncate" title="Product Code">Product Code:</p>
+                                </dt>
+                                <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                                    <p class="slds-truncate" title="{!v.details.code}">{!v.details.code}</p>
+                                </dd>
+                            </aura:if>
+
+                            <aura:if isTrue="{!v.details.currencyCode != null}">
+                                <dt class="slds-dl_horizontal__label">
+                                    <p class="slds-truncate" title="Product Currency">Product Currency:</p>
+                                </dt>
+                                <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                                    <p class="slds-truncate" title="{!v.details.currencyCode}">{!v.details.currencyCode}</p>
+                                </dd>
+                            </aura:if>
+
+                            <aura:if isTrue="{!v.details.description != null}">
+                                <dt class="slds-dl_horizontal__label">
+                                    <p class="slds-truncate" title="Product Description">Product Description:</p>
+                                </dt>
+                                <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                                    <p class="slds-truncate" title="{!v.details.description}">{!v.details.description}</p>
+                                </dd>
+                            </aura:if>
+
+                            <aura:if isTrue="{!v.details.isActive != null}">
+                                <dt class="slds-dl_horizontal__label">
+                                    <p class="slds-truncate" title="Active">Active:</p>
+                                </dt>
+                                <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                                    <p class="slds-truncate" title="{!v.details.isActive}">{!v.details.isActive}</p>
+                                </dd>
+                            </aura:if>
+
+                        </dl>
+                    </lightning:tile>
                 </div>
 
                 <!-- Footer -->

@@ -4,6 +4,19 @@ public class Product2Service {
 	public Product2Repository product2Repository = new Product2Repository();
 	public CartItemRepository cartItemRepository = new CartItemRepository();
 
+	public Product2 getById(Id id) {
+		return product2Repository.findById(id);
+	}
+
+	public Product2[] getProductsByCartItems(ProductCartItem__c[] items) {
+		List<String> productIds = new List<String>();
+		for (ProductCartItem__c next : items) {
+			productIds.add(next.Product__c);
+		}
+
+		return product2Repository.findAllByIds(productIds);
+	}
+
 	public Product2[] getFilteredProducts(Id opportunityId,
 										  String description,
 										  Set<String> familiesOptions) {

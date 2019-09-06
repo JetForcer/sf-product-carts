@@ -33,4 +33,13 @@ public class CartItemRepository {
 				where Opportunity__c = :opportunityId
 		];
 	}
+
+	public ProductCartItem__c finOneByProductIdAndOpportunityId(Id product2Id, Id opportunityId) {
+		return [
+				select Id
+				from ProductCartItem__c
+				where Product__c = :product2Id
+				and Opportunity__c = :opportunityId
+		];
+	}
 }
