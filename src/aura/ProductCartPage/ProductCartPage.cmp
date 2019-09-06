@@ -1,3 +1,4 @@
-<aura:component implements="flexipage:availableForAllPageTypes">
+<aura:component implements="force:lightningQuickActionWithoutHeader">
 
+    <h1>Hello, Lightning!</h1>
 </aura:component>

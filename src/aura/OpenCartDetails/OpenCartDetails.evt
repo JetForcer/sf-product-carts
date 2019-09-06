@@ -1,0 +1,5 @@
+<aura:event type="APPLICATION" description="Open Cart Details">
+
+    <aura:attribute name="opportunityId" type="Id"/>
+    <aura:attribute name="product2Id" type="Id"/>
+</aura:event>

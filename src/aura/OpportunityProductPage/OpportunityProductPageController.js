@@ -32,5 +32,39 @@
 
     reloadFilteredProducts: function (cmp, evt, helper) {
         helper.doReloadFilteredProducts(cmp, evt)
+    },
+
+    addToCart: function (cmp, evt, helper) {
+        var opportunityId = cmp.get('v.recordId');
+        var product2Id = evt.getSource().get("v.value");
+
+        var addToCartAction = cmp.get("c.createCartItem");
+        addToCartAction.setParams({
+            "opportunityId": opportunityId,
+            "product2Id": product2Id
+        });
+
+        addToCartAction.setCallback(this, function (response) {
+            var state = response.getState();
+
+            if (state === "SUCCESS") {
+                helper.doReloadFilteredProducts(cmp, evt);
+            } else if (state === "ERROR") {
+                alert('Error : ' + JSON.stringify(response.getError()));
+            }
+        });
+
+        $A.enqueueAction(addToCartAction);
+    },
+
+    fireOpenCartDetailsEvent: function (cmp, evt) {
+        var opportunityId = cmp.get('v.recordId');
+        var product2Id = evt.getSource().get("v.value");
+
+        var openCartDetailsEvent = $A.get("e.c:OpenCartDetails");
+        openCartDetailsEvent.fire({
+            "opportunityId": opportunityId,
+            "product2Id": product2Id
+        });
     }
 });

@@ -1,4 +1,9 @@
-public class ProductDto {
+public virtual class ProductDto {
+
+	@AuraEnabled
+	public Id id {
+		get; private set;
+	}
 
 	@AuraEnabled
 	public String name {
@@ -7,7 +12,7 @@ public class ProductDto {
 
 	@AuraEnabled
 	public String productLink {
-		get; set;
+		get; private set;
 	}
 
 	@AuraEnabled
@@ -20,7 +25,9 @@ public class ProductDto {
 		get; set;
 	}
 
-	public ProductDto(String name) {
+	public ProductDto(String name, String id) {
+		this.id = id;
 		this.name = name;
+		this.productLink = '/lightning/r/' + id + '/view';
 	}
 }

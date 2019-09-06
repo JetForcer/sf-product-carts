@@ -5,6 +5,7 @@ public class Util {
 	}
 
 	public static Boolean isEmpty(Object obj) {
+		System.debug('[obj::Object]:watches' + JSON.serialize(obj));
 		if (obj == null) {
 			return true;
 		} else if (obj instanceof String) {
@@ -12,7 +13,13 @@ public class Util {
 			return String.isEmpty(trimmed);
 		} else if (obj instanceof List<Object>) {
 			return ((List<Object>)obj).isEmpty();
-		} else {
+		} else if (obj instanceof Set<Object>) {
+			return ((Set<Object>)obj).isEmpty();
+		}
+		else if (obj instanceof Object[]) {
+			return ((Object[])obj).isEmpty();
+		}
+		else {
 			throw new UnsupportedOperationException('Not supported type ' + obj);
 		}
 	}

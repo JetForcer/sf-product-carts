@@ -11,6 +11,8 @@
     <aura:handler name="init" value="{!this}" action="{!c.initCheckboxFilters}"/>
     <aura:handler name="init" value="{!this}" action="{!c.reloadFilteredProducts}"/>
 
+    <aura:registerEvent name="openCartDetailsEvent" type="c:OpenCartDetails"/>
+
 
     <lightning:layout multipleRows="true">
 
@@ -67,7 +69,9 @@
 
                                 <lightning:card title="" class="slds-p-around--small">
 
-                                    <lightning:tile label="{!product.name}" class="slds-text-heading_medium" href="/">
+                                    <lightning:tile label="{!product.name}"
+                                                    class="slds-text-heading_medium"
+                                                    href="{!product.productLink}">
 
                                         <div class="slds-p-top--medium">
 
@@ -89,10 +93,22 @@
 
                                             <hr class=""/>
 
+                                            <c:ProductDetails opportunityId="{!v.recordId}" product2Id="{!product.id}"/>
+
                                             <lightning:buttonGroup
                                                     class="slds-text-heading_small slds-align_absolute-center">
-                                                <lightning:button label="Details"/>
-                                                <lightning:button label="Add" class="slds-button--brand"/>
+
+                                                <lightning:button label="Details"
+                                                                  onclick="{!c.fireOpenCartDetailsEvent}"
+                                                                  value="{!product.id}"
+                                                />
+
+                                                <!-- Pass data to JS controller: https://salesforce.stackexchange.com/questions/171852/what-is-the-correct-way-to-pass-parameters-to-lightning-js-controller-from-uibu -->
+                                                <lightning:button label="Add"
+                                                                  class="slds-button--brand"
+                                                                  onclick="{!c.addToCart}"
+                                                                  value="{!product.id}"
+                                                />
                                             </lightning:buttonGroup>
                                         </div>
                                     </lightning:tile>
