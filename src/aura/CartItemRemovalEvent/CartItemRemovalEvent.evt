@@ -1,0 +1,4 @@
+<aura:event type="APPLICATION" description="Item Cart Removed">
+
+    <aura:attribute name="opportunityId" type="Id"/>
+</aura:event>

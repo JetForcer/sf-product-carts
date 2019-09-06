@@ -11,6 +11,8 @@
     <aura:handler name="init" value="{!this}" action="{!c.initCheckboxFilters}"/>
     <aura:handler name="init" value="{!this}" action="{!c.reloadFilteredProducts}"/>
 
+    <aura:handler event="c:CartItemRemovalEvent" action="{!c.handleCartItemRemoval}"/>
+
     <aura:registerEvent name="openCartDetailsEvent" type="c:OpenCartDetails"/>
 
 

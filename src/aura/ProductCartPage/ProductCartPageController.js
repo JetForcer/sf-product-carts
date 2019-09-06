@@ -4,8 +4,8 @@
     },
 
     removeFromCart: function (cmp, evt, helper) {
-        var product2Id = evt.getParam('row').product2Id;
         var opportunityId = cmp.get('v.recordId');
+        var product2Id = evt.getParam('row').product2Id;
 
         var removeItemAction = cmp.get("c.removeCartItem");
         removeItemAction.setParams({
@@ -17,6 +17,7 @@
             var state = response.getState();
             if (state === "SUCCESS") {
                 helper.doReloadCartItems(cmp, evt);
+                helper.fireCartItemRemoval(opportunityId)
             } else if (state === "ERROR") {
                 alert('Error : ' + JSON.stringify(response.getError()));
             }

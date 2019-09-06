@@ -34,6 +34,15 @@
         helper.doReloadFilteredProducts(cmp, evt)
     },
 
+    handleCartItemRemoval: function (cmp, evt, helper) {
+        var opportunityId = cmp.get('v.recordId');
+        var eventOpportunityId = evt.getParam("opportunityId");
+
+        if (opportunityId === eventOpportunityId) {
+            helper.doReloadFilteredProducts(cmp, evt)
+        }
+    },
+
     addToCart: function (cmp, evt, helper) {
         var opportunityId = cmp.get('v.recordId');
         var product2Id = evt.getSource().get("v.value");

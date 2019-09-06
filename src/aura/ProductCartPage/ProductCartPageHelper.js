@@ -17,5 +17,12 @@
         });
 
         $A.enqueueAction(cartItemsAction);
+    },
+
+    fireCartItemRemoval: function (opportunityId) {
+        var cartItemRemovalEvent = $A.get("e.c:CartItemRemovalEvent");
+        cartItemRemovalEvent.fire({
+            "opportunityId": opportunityId
+        });
     }
 });
