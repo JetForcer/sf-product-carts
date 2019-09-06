@@ -5,6 +5,7 @@ public class ProductDtoConverter {
 		for (Product2 next : products) {
 			ProductDto dto = new ProductDto(next.Name, next.Id);
 			dto.description = next.Description;
+			dto.iconLink = next.IconLink__c;
 			result.add(dto);
 		}
 

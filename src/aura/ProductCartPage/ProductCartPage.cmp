@@ -32,6 +32,16 @@
                 onrowaction="{!c.removeFromCart}"
         />
 
+        <!-- Brand variant: Identifies the primary action in a group of buttons -->
+        <div class="slds-p-top--small slds-p-right--medium">
+            <lightning:button class="slds-float--right"
+                              variant="brand"
+                              label="Checkout"
+                              title="Checkout Action"
+                              onclick="{!c.handleCheckout}"
+            />
+        </div>
+
         <aura:set attribute="else">
             <p>
                 <lightning:formattedText value="No items"/>

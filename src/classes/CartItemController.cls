@@ -15,4 +15,11 @@ public class CartItemController {
 	public static void removeCartItem(Id product2Id, Id opportunityId) {
 		cartItemService.removeCartItemById(product2Id, opportunityId);
 	}
+
+	@AuraEnabled
+	public static void checkoutCartItems(Id opportunityId, CartItemDto[] cartItems) {
+		System.debug('[cartItems::CartItemDto[]]:watches' + JSON.serialize(cartItems));
+		System.debug('[opportunityId::Id]:watches' + JSON.serialize(opportunityId));
+		cartItemService.checkoutCartItems(opportunityId, cartItems);
+	}
 }

@@ -2,12 +2,12 @@ public class CartItemDto {
 
 	@AuraEnabled
 	public String product2Id {
-		get; private set;
+		get; set;
 	}
 
 	@AuraEnabled
 	public String name {
-		get; private set;
+		get; set;
 	}
 
 	@AuraEnabled
@@ -18,6 +18,10 @@ public class CartItemDto {
 	@AuraEnabled
 	public String currencyCode {
 		get; set;
+	}
+
+	public CartItemDto() {
+		// for serialization
 	}
 
 	public CartItemDto(Id product2Id, String name) {

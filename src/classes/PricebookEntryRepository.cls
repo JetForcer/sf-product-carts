@@ -7,6 +7,7 @@ public class PricebookEntryRepository {
 		return [
 				select Id,
 						CurrencyIsoCode,
+						UnitPrice,
 						Product2Id,
 						Pricebook2Id
 				from PricebookEntry

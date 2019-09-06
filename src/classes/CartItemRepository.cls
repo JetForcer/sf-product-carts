@@ -34,6 +34,17 @@ public class CartItemRepository {
 		];
 	}
 
+	public List<ProductCartItem__c> finAllBy(Id opportunityId, List<String> product2Ids) {
+		return [
+				select Id,
+						Opportunity__c,
+						Product__c
+				from ProductCartItem__c
+				where Opportunity__c = :opportunityId
+				and Product__c in: product2Ids
+		];
+	}
+
 	public ProductCartItem__c finOneByProductIdAndOpportunityId(Id product2Id, Id opportunityId) {
 		return [
 				select Id

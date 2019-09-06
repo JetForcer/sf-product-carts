@@ -92,8 +92,11 @@
                                                     value="{!product.description == null ? 'No description provided': product.description}"
                                                     class="slds-text-heading_small"
                                             />
+                                        </div>
 
-                                            <hr class=""/>
+                                        <div class="slds-p-top--medium">
+
+                                            <hr/>
 
                                             <c:ProductDetails opportunityId="{!v.recordId}" product2Id="{!product.id}"/>
 
