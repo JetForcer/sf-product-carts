@@ -34,17 +34,18 @@
                 </header>
 
                 <!-- Body -->
-                <div class="slds-modal__content slds-p-around_medium slds-text-heading_label-normal" id="modal-content-id-1">
+                <div class="slds-modal__content slds-p-around_medium slds-text-heading_label-normal"
+                     id="modal-content-id-1">
                     <lightning:tile label="{!v.details.name}" href="{!v.details.productLink}">
                         <dl class="slds-dl_horizontal slds-p-around--medium">
-                             <aura:if isTrue="{!v.details.family != null}">
-                                 <dt class="slds-dl_horizontal__label">
-                                     <p class="slds-truncate" title="Family">Family:</p>
-                                 </dt>
-                                 <dd class="slds-dl_horizontal__detail slds-tile__meta">
-                                     <p class="slds-truncate" title="{!v.details.family}">{!v.details.family}</p>
-                                 </dd>
-                             </aura:if>
+                            <aura:if isTrue="{!v.details.family != null}">
+                                <dt class="slds-dl_horizontal__label">
+                                    <p class="slds-truncate" title="Family">Family:</p>
+                                </dt>
+                                <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                                    <p class="slds-truncate" title="{!v.details.family}">{!v.details.family}</p>
+                                </dd>
+                            </aura:if>
 
                             <aura:if isTrue="{!v.details.code != null}">
                                 <dt class="slds-dl_horizontal__label">
@@ -60,7 +61,8 @@
                                     <p class="slds-truncate" title="Product Currency">Product Currency:</p>
                                 </dt>
                                 <dd class="slds-dl_horizontal__detail slds-tile__meta">
-                                    <p class="slds-truncate" title="{!v.details.currencyCode}">{!v.details.currencyCode}</p>
+                                    <p class="slds-truncate"
+                                       title="{!v.details.currencyCode}">{!v.details.currencyCode}</p>
                                 </dd>
                             </aura:if>
 
@@ -69,7 +71,8 @@
                                     <p class="slds-truncate" title="Product Description">Product Description:</p>
                                 </dt>
                                 <dd class="slds-dl_horizontal__detail slds-tile__meta">
-                                    <p class="slds-truncate" title="{!v.details.description}">{!v.details.description}</p>
+                                    <p class="slds-truncate"
+                                       title="{!v.details.description}">{!v.details.description}</p>
                                 </dd>
                             </aura:if>
 

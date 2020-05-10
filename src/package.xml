@@ -1,6 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
+        <members>CartItemController</members>
+        <members>CartItemDto</members>
+        <members>CartItemDtoConverter</members>
+        <members>CartItemRepository</members>
+        <members>CartItemService</members>
+        <members>CheckboxOption</members>
+        <members>CheckboxOptionService</members>
+        <members>LinkBuilder</members>
+        <members>OpportunityRepository</members>
+        <members>PricebookEntryRepository</members>
+        <members>Product2Repository</members>
+        <members>Product2Service</members>
+        <members>ProductController</members>
+        <members>ProductDetailsController</members>
+        <members>ProductDetailsDto</members>
+        <members>ProductDetailsDtoConverter</members>
+        <members>ProductDto</members>
+        <members>ProductDtoConverter</members>
+        <members>Util</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>CartItemRemovalEvent</members>
+        <members>OpenCartDetails</members>
+        <members>OpportunityProductPage</members>
+        <members>ProductCartPage</members>
+        <members>ProductDetails</members>
+        <name>AuraDefinitionBundle</name>
+    </types>
+    <types>
         <members>*</members>
         <name>CustomObject</name>
     </types>
